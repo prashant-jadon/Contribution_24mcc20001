@@ -1,0 +1,325 @@
+SYSTEM ROLES 
+Admin (Super Control)
+Vendor (Laundry Shop)
+Delivery Pickup Guy
+User (Customer)
+ADMIN PANEL – COMPLETE POWERS 
+ User Management
+View users
+Block / unblock users
+View user order history
+Refund control (partial / full)
+Manually place order for user (support use case)
+Vendor Management
+View vendor applications
+Verification checklist
+Shop images ✔
+Owner images ✔
+ID card images ✔
+Address match ✔
+Approve / Reject / Ask for re-upload
+Block / suspend vendor
+Vendor performance dashboard:
+Total orders
+Acceptance rate
+Cancellation rate
+Ratings
+Revenue generated
+Delivery Guy Management
+Create delivery boy credentials
+Assign pincodes / zones
+Availability status (Free / Busy / Offline)
+Live GPS tracking toggle
+Block / suspend delivery guy
+See status and current deliveries.
+Performance:
+On-time delivery %
+Order completion %
+Complaints
+Admin should be able to:
+Set delivery fee:
+
+
+Flat
+
+
+Distance-based
+
+
+Subscription free delivery
+
+
+Split delivery fee:
+
+
+Delivery guy %
+
+
+Platform %
+
+
+
+ Order Management (Critical)
+View all orders
+Filter by:
+Status
+Vendor
+Pincode
+Delivery guy
+Manual reassignment of delivery boy
+Cancel order (with refund rules)
+Dispute resolution panel
+Services & Pricing Management
+Create services:
+Wash
+Fold
+Iron
+Dry Clean
+Create items under service:
+T-shirt
+Shirt
+Jeans
+Pricing rules:
+Base price
+Vendor editable or fixed (your choice)
+Enable / disable items globally
+Can add more services and item under services 
+Subscription Management
+Create subscription plans:
+Bronze / Silver / Gold
+Define:
+Weekly / Monthly
+KG limit
+Pickup count
+Services included
+Vendor selects which plans they support
+Admin controls pricing & discounts
+Can create more subscriptions
+Finance & Payments
+Stripe dashboard integration
+Vendor payout management
+Commission control:
+Platform fee %
+Refund handling
+Invoices & GST support (India future)
+Promotions & Growth
+Coupon codes
+Referral system
+First order discounts
+Area-based promotions (pincode specific)
+VENDOR FLOW – FULLY COMPLETE Registration 
+Create Account using email and password
+Then Provide full name , phone number,id card number,gender,full business address,pincode
+Then provide two pictures of shop, two pictures of shop owner in front of shop and then two picture of id cards whose number is provided above
+Then provide shop name , shop registration number, shop description
+Then upload 4 pictures that will appear as shop profile in app to users
+Then select what services they can provide [wash,fold,iron etc] {services list added by admin}
+Then select what subscription they can handle [gold,bronze,silver etc] {subscription list added by admin}
+Bank details (for payouts)
+Service turnaround time (24h / 48h)
+Operating hours
+Max daily capacity (KG)
+Percentage of amount they will receive on each order they can see this
+Vendor Dashboard
+Orders tab:
+New
+Accepted
+In Progress
+Completed
+Accept / Reject with reason
+Chat with user
+Chat with delivery guy
+View assigned delivery guy live on map
+After Accepting Order
+Vendor waits for admin delivery assignment
+Can request pickup urgently
+Mark order ready for pickup
+Vendor Profile
+Edit profile → goes for admin re-review
+View ratings
+Reply to reviews
+Pause shop (vacation mode)
+Vendor Earnings
+Daily / weekly earnings
+Pending payouts
+Completed payouts
+Invoice download
+ Order Capacity Control
+Add:
+Auto-disable new orders if:
+
+
+Max daily KG reached
+
+
+Vendor can manually:
+
+
+Pause accepting orders
+
+
+Item-Level Confirmation
+Laundry businesses need this.
+Vendor should:
+Confirm received items count
+
+
+Flag mismatch:
+
+
+Missing items
+
+
+Extra items
+
+
+Admin resolves if dispute.
+. Damage & Exception Reporting
+Vendor can:
+Report damaged item (photo proof)
+
+
+Report unserviceable item
+
+
+Admin decides refund/adjustment.
+Subscription Load Tracking
+Vendor must see:
+Remaining KG for that user
+
+
+Subscription expiry date
+
+
+Whether current order exceeds remaining KG
+
+DELIVERY PICKUP GUY FLOW 🚴
+Login
+Email + password (created by admin)
+Delivery Dashboard
+Assigned orders only
+Order details:
+Pickup address
+Vendor address
+Customer address
+Mapbox maps integration
+Order Status Updates
+Accepted
+Picked up from user
+Reached vendor
+Picked from vendor
+Delivered to user
+Failed attempt (reason required)
+Delivery Guy Safety & Control
+SOS button
+Call user/vendor
+Upload pickup proof photo
+Upload delivery proof photo
+OTP / Proof System (VERY IMPORTANT)
+Add:
+Pickup OTP from user
+
+
+Delivery OTP to user
+ OR
+
+
+Photo + timestamp proof (mandatory)
+
+
+Avoids fake delivery claims.
+Earnings & History
+Delivery guy dashboard:
+Today earnings
+
+
+Weekly earnings
+
+
+Completed deliveries
+
+
+Failed attempts
+
+USER JOURNEY – FULL & POLISHED
+Signup
+Email + password
+Location pin on map
+Save multiple addresses
+Home 
+Services (Wash / Fold / Iron)
+Subscriptions
+Nearby vendors (by pincode)
+Offers banner
+Vendor Listing
+Filter:
+Price
+Rating
+Distance
+Services
+Vendor profile page:
+Photos
+Services
+Subscriptions
+Reviews
+Per Item Order Flow
+Select services
+Select items + quantity
+Address selection
+Bill breakdown
+Stripe payment
+Order confirmation
+Subscription Flow
+Buy subscription (Stripe)
+Track remaining KG and number of washes 
+Use subscription KG per order
+Auto remind when low KG
+Order Scheduling
+Users should be able to:
+Choose pickup time slot
+
+
+Choose delivery preference (same day / next day)
+Subscription Rules 
+Add logic:
+Subscription is vendor-specific
+
+
+Cannot mix vendors under one subscription
+
+
+KG rollover:
+
+
+Yes / No (admin configurable)
+
+
+
+User Order Tracking
+Live delivery tracking
+Order timeline
+Chat with vendor
+Chat with delivery guy
+After Order
+Rate vendor
+Rate delivery guy
+Report issue
+ Notifications
+Push notifications for:
+Order updates
+Subscription expiry
+Offers
+Disputes & Support
+Order complaint
+Missing item
+Damaged item
+Admin resolution flow
+
+ Analytics (Admin Gold)
+Orders per area
+Most popular services
+Vendor churn
+Delivery efficiency
+
+
+Business model - Admin receive all money vendors will have cut from price and delivery guy will receive from admin end whatever they will provide from admin panel 
