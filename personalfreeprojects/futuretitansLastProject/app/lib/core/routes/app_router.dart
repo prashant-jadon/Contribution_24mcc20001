@@ -15,7 +15,7 @@ import '../../features/profile/presentation/screens/profile_screen.dart';
 import '../../features/profile/presentation/screens/edit_profile_screen.dart';
 import '../../features/payment/presentation/screens/payment_screen.dart';
 import '../../features/profile/presentation/screens/help_support_screen.dart';
-import '../../features/ai_chat/presentation/widgets/zunova_avatar.dart';
+import '../../features/ai_chat/presentation/widgets/zunnova_avatar.dart';
 import '../../features/submission/presentation/screens/submission_screen.dart';
 import '../../shared/widgets/custom_bottom_nav.dart';
 import '../../core/theme/app_theme.dart';
@@ -166,7 +166,7 @@ class AppScaffold extends StatelessWidget {
                   ],
                 ),
                 child: const Text(
-                  "Hi, I am Zunova 👋",
+                  "Hi, I am zunnova 👋",
                   style: TextStyle(
                     color: Colors.black87,
                     fontSize: 12,
@@ -177,13 +177,13 @@ class AppScaffold extends StatelessWidget {
               ),
             ),
           ),
-          // Zunova Avatar
+          // zunnova Avatar
           Positioned(
             right: -40,
             bottom: -40,
             child: GestureDetector(
               onTap: () => context.push('/global-chat'),
-              child: const ZunovaAvatar(size: 226, isTalking: false),
+              child: const zunnovaAvatar(size: 226, isTalking: false),
             ),
           ),
         ],

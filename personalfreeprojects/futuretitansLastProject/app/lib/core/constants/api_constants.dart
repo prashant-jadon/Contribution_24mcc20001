@@ -1,6 +1,8 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class ApiConstants {
   static String get baseUrl {
-    return 'https://future-titans-backend-sigma.vercel.app';
+    return dotenv.env['API_URL'] ?? 'https://future-titans-backend-sigma.vercel.app';
   }
 
   // Auth Endpoints

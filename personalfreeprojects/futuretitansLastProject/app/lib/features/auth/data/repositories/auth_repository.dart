@@ -19,6 +19,13 @@ class AuthRepository {
   AuthRepository({required Dio dio, required TokenStorage tokenStorage}) 
       : _dio = dio, _tokenStorage = tokenStorage;
 
+  String _getErrorMessage(dynamic data, [String defaultMsg = 'Network error']) {
+    if (data is Map<String, dynamic> && data.containsKey('error')) {
+      return data['error'].toString();
+    }
+    return defaultMsg;
+  }
+
   Future<UserModel> login(String email, String password) async {
     try {
       final response = await _dio.post(ApiConstants.login, data: {
@@ -34,10 +41,10 @@ class AuthRepository {
         );
         return UserModel.fromJson(data['user']);
       } else {
-        throw Exception(response.data['error'] ?? 'Login failed');
+        throw Exception(_getErrorMessage(response.data, 'Login failed'));
       }
     } on DioException catch (e) {
-      throw Exception(e.response?.data['error'] ?? e.message ?? 'Network error');
+      throw Exception(_getErrorMessage(e.response?.data, e.message ?? 'Network error'));
     }
   }
 
@@ -73,10 +80,10 @@ class AuthRepository {
         );
         return UserModel.fromJson(data['user']);
       } else {
-        throw Exception(response.data['error'] ?? 'Signup failed');
+        throw Exception(_getErrorMessage(response.data, 'Signup failed'));
       }
     } on DioException catch (e) {
-      throw Exception(e.response?.data['error'] ?? e.message ?? 'Network error');
+      throw Exception(_getErrorMessage(e.response?.data, e.message ?? 'Network error'));
     }
   }
 
@@ -86,10 +93,10 @@ class AuthRepository {
       if (response.statusCode == 200) {
         return UserModel.fromJson(response.data);
       } else {
-        throw Exception(response.data['error'] ?? 'Failed to load profile');
+        throw Exception(_getErrorMessage(response.data, 'Failed to load profile'));
       }
     } on DioException catch (e) {
-      throw Exception(e.response?.data['error'] ?? e.message ?? 'Network error');
+      throw Exception(_getErrorMessage(e.response?.data, e.message ?? 'Network error'));
     }
   }
 
@@ -99,10 +106,10 @@ class AuthRepository {
       if (response.statusCode == 200) {
         return response.data;
       } else {
-        throw Exception(response.data['error'] ?? 'Failed to check completion status');
+        throw Exception(_getErrorMessage(response.data, 'Failed to check completion status'));
       }
     } on DioException catch (e) {
-      throw Exception(e.response?.data['error'] ?? e.message ?? 'Network error');
+      throw Exception(_getErrorMessage(e.response?.data, e.message ?? 'Network error'));
     }
   }
 
@@ -141,10 +148,10 @@ class AuthRepository {
       if (response.statusCode == 200) {
         return UserModel.fromJson(response.data['user']);
       } else {
-        throw Exception(response.data['error'] ?? 'Update failed');
+        throw Exception(_getErrorMessage(response.data, 'Update failed'));
       }
     } on DioException catch (e) {
-      throw Exception(e.response?.data['error'] ?? e.message ?? 'Network error');
+      throw Exception(_getErrorMessage(e.response?.data, e.message ?? 'Network error'));
     }
   }
 
@@ -159,10 +166,10 @@ class AuthRepository {
       });
 
       if (response.statusCode != 200) {
-        throw Exception(response.data['error'] ?? 'Failed to send reset email');
+        throw Exception(_getErrorMessage(response.data, 'Failed to send reset email'));
       }
     } on DioException catch (e) {
-      throw Exception(e.response?.data['error'] ?? e.message ?? 'Network error');
+      throw Exception(_getErrorMessage(e.response?.data, e.message ?? 'Network error'));
     }
   }
 }

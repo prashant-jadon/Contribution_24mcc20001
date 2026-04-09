@@ -1,11 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/chat_model.dart';
 import '../../data/repositories/chat_repository.dart';
+import '../../../auth/data/repositories/auth_repository.dart';
 
 class ChatState {
   final List<ChatMessageModel> messages;
   final bool isLoading;
   final bool isCompleted;
+  final bool isModuleCompleted;
   final Map<String, dynamic>? ssiScore;
   final String? error;
 
@@ -13,6 +15,7 @@ class ChatState {
     required this.messages,
     this.isLoading = false,
     this.isCompleted = false,
+    this.isModuleCompleted = false,
     this.ssiScore,
     this.error,
   });
@@ -21,6 +24,7 @@ class ChatState {
     List<ChatMessageModel>? messages,
     bool? isLoading,
     bool? isCompleted,
+    bool? isModuleCompleted,
     Map<String, dynamic>? ssiScore,
     String? error,
   }) {
@@ -28,6 +32,7 @@ class ChatState {
       messages: messages ?? this.messages,
       isLoading: isLoading ?? this.isLoading,
       isCompleted: isCompleted ?? this.isCompleted,
+      isModuleCompleted: isModuleCompleted ?? this.isModuleCompleted,
       ssiScore: ssiScore ?? this.ssiScore,
       error: error, // Can set error to null on new copy
     );
@@ -133,8 +138,25 @@ class ChatController extends Notifier<ChatState> {
     state = state.copyWith(isLoading: true);
     try {
       final res = await _repository.finishChapter(_moduleId!, _chapterId!);
+
+      bool moduleDone = false;
+      try {
+        final authRepo = ref.read(authRepositoryProvider);
+        final completionStatus = await authRepo.checkCompletionStatus();
+        final details = completionStatus['details'] as List?;
+        if (details != null) {
+          final currentMod = details.firstWhere((d) => d['moduleId'] == _moduleId, orElse: () => null);
+          if (currentMod != null && currentMod['isComplete'] == true) {
+            moduleDone = true;
+          }
+        }
+      } catch (e) {
+        // ignore
+      }
+
       state = state.copyWith(
         isCompleted: true,
+        isModuleCompleted: moduleDone,
         isLoading: false,
         ssiScore: res['finalSSI'] ?? state.ssiScore,
       );

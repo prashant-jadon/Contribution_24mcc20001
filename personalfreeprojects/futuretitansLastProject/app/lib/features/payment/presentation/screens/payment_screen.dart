@@ -273,7 +273,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
           ),
           const SizedBox(height: 16),
           _buildFeatureRow(Icons.check_circle, 'All Masterclass Modules & Chapters'),
-          _buildFeatureRow(Icons.check_circle, 'Zunova AI Mentoring Chat'),
+          _buildFeatureRow(Icons.check_circle, 'zunnova AI Mentoring Chat'),
           _buildFeatureRow(Icons.check_circle, 'Startup Idea Submission'),
           _buildFeatureRow(Icons.check_circle, 'SSI Score & Achievements'),
           const SizedBox(height: 32),

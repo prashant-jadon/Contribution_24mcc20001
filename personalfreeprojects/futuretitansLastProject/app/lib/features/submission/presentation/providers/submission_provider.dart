@@ -24,10 +24,10 @@ final submissionEligibilityProvider = FutureProvider<EligibilityStatus>((ref) as
   try {
     final authRepo = ref.watch(authRepositoryProvider);
     final completionRes = await authRepo.checkCompletionStatus();
-    final allCompleted = completionRes['allCompleted'] == true;
+    final canSubmit = completionRes['canSubmit'] == true;
     
-    if (!allCompleted) {
-      return EligibilityStatus(true, false, 'Complete all learning modules before accessing the final submission form.');
+    if (!canSubmit) {
+      return EligibilityStatus(true, false, 'Complete at least one learning module before accessing the final submission form.');
     }
     return EligibilityStatus(true, true, '');
   } catch (e) {

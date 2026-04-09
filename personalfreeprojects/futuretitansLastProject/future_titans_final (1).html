@@ -1,0 +1,2198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future Titans — Engineering a Solution-Seeking Generation</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest:     #0B2318;
+  --forest-mid: #122D20;
+  --forest-lit: #1A4230;
+  --forest-glo: #245C40;
+  --gold:       #C8A84B;
+  --gold-lt:    #E2C97A;
+  --gold-pale:  #F5EDD5;
+  --cream:      #FAF7F0;
+  --white:      #FFFFFF;
+  --ink:        #111111;
+  --mist:       rgba(255,255,255,0.06);
+  --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ─── UTILITY ─────────────────────────── */
+.gold { color: var(--gold); }
+.white { color: var(--white); }
+.serif { font-family: 'Cormorant Garamond', serif; }
+
+/* ─── GRAIN OVERLAY ───────────────────── */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════
+   COVER
+═══════════════════════════════════════ */
+.cover {
+  min-height: 100vh;
+  background: var(--forest);
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  overflow: hidden;
+}
+
+/* Diagonal geometric accent */
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 55%;
+  height: 115%;
+  background: linear-gradient(160deg, var(--forest-lit) 0%, var(--forest-mid) 60%, transparent 100%);
+  clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+  z-index: 0;
+}
+
+/* Gold radial glow */
+.cover::after {
+  content: '';
+  position: absolute;
+  top: 30%;
+  right: 15%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(200,168,75,0.18) 0%, transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cover-inner {
+  position: relative;
+  z-index: 1;
+  padding: 80px 80px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cover-logo-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-left: 2px solid var(--gold);
+  padding-left: 14px;
+}
+
+.cover-partner-tag {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  font-weight: 400;
+  text-align: right;
+  line-height: 2;
+}
+
+.cover-partner-tag strong {
+  color: rgba(255,255,255,0.6);
+}
+
+.cover-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 0 40px;
+}
+
+/* BIG stacked headline */
+.cover-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cover-eyebrow::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.cover-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(90px, 14vw, 180px);
+  line-height: 0.88;
+  letter-spacing: -1px;
+  color: var(--white);
+  position: relative;
+}
+
+.cover-h1 .titans {
+  color: var(--gold);
+  display: block;
+  -webkit-text-stroke: 0px;
+}
+
+.cover-tagline {
+  margin-top: 40px;
+  max-width: 560px;
+}
+
+.cover-tagline h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(26px, 3.5vw, 42px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.25;
+  font-style: italic;
+  letter-spacing: 0.3px;
+}
+
+.cover-tagline h2 em {
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.cover-tagline p {
+  margin-top: 20px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.5px;
+  font-weight: 300;
+}
+
+/* Gold bar at bottom */
+.cover-bottom {
+  border-top: 1px solid rgba(200,168,75,0.25);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.cover-bottom-left {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+.cover-bottom-right {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.partner-badge {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 6px 14px;
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════
+   SECTION SYSTEM
+═══════════════════════════════════════ */
+.s-dark {
+  background: var(--forest);
+  color: var(--white);
+  position: relative;
+}
+
+.s-mid {
+  background: var(--forest-mid);
+  color: var(--white);
+  position: relative;
+}
+
+.s-light {
+  background: var(--cream);
+  color: var(--ink);
+}
+
+.s-gold {
+  background: var(--gold);
+  color: var(--forest);
+}
+
+.s-white {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.wrap {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 100px 72px;
+}
+
+.wrap-tight {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 80px 72px;
+}
+
+/* ─── SECTION LABELS ──────────────────── */
+.s-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.s-label::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+}
+
+.s-label-dark {
+  color: rgba(255,255,255,0.35);
+}
+
+.s-label-inv {
+  color: var(--forest);
+}
+
+/* ─── HEADINGS ────────────────────────── */
+.h-display {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 5.5vw, 68px);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.5px;
+}
+
+.h-display em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.h-display.light { color: var(--white); }
+.h-display.dark { color: var(--forest); }
+.h-display.inv { color: var(--forest); }
+
+.h-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* ─── DIVIDER ─────────────────────────── */
+.divider {
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+  margin: 32px 0;
+}
+
+.divider.center { margin-left: auto; margin-right: auto; }
+
+/* ═══════════════════════════════════════
+   PROBLEM SECTION
+═══════════════════════════════════════ */
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  margin-top: 60px;
+  background: rgba(255,255,255,0.08);
+}
+
+.problem-card {
+  background: var(--forest-mid);
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+.problem-card:hover {
+  background: var(--forest-lit);
+}
+
+.problem-card-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 100px;
+  color: rgba(200,168,75,0.07);
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.problem-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.problem-card p {
+  font-size: 14.5px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.75;
+}
+
+/* Pull quote */
+.pull-quote {
+  border-left: 3px solid var(--gold);
+  padding: 32px 40px;
+  margin-top: 48px;
+  background: rgba(200,168,75,0.06);
+}
+
+.pull-quote p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+}
+
+.pull-quote cite {
+  display: block;
+  margin-top: 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-style: normal;
+}
+
+/* ═══════════════════════════════════════
+   STATEMENT BAND
+═══════════════════════════════════════ */
+.statement-band {
+  background: var(--gold);
+  padding: 56px 72px;
+  text-align: center;
+}
+
+.statement-band p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 600;
+  color: var(--forest);
+  line-height: 1.35;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════════════════
+   ECOSYSTEM / SOLUTION
+═══════════════════════════════════════ */
+.ecosystem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  margin-top: 64px;
+}
+
+.eco-card {
+  background: var(--forest-mid);
+  padding: 52px 44px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.eco-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.eco-card:hover::before { transform: scaleX(1); }
+
+.eco-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.eco-word {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  color: var(--white);
+  letter-spacing: 3px;
+  display: block;
+  margin-bottom: 24px;
+}
+
+.eco-rule {
+  width: 40px;
+  height: 1px;
+  background: rgba(200,168,75,0.4);
+  margin: 0 auto 24px;
+}
+
+.eco-card p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.75;
+}
+
+.science-note {
+  margin-top: 4px;
+  background: var(--forest-lit);
+  padding: 32px 44px;
+  border-left: 3px solid var(--gold);
+}
+
+.science-note p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.75;
+  font-style: italic;
+}
+
+.science-note strong {
+  color: var(--gold-lt);
+  font-style: normal;
+}
+
+/* ═══════════════════════════════════════
+   WHO WE ARE
+═══════════════════════════════════════ */
+.who-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  margin-top: 64px;
+}
+
+.mission-block {
+  border-left: 2px solid var(--gold);
+  padding-left: 28px;
+  margin-bottom: 40px;
+}
+
+.mission-block .label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.mission-block p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.8;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+}
+
+.stat-cell {
+  background: var(--forest-lit);
+  padding: 32px 28px;
+}
+
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px;
+  color: var(--gold);
+  line-height: 1;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.stat-cell p {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.6;
+}
+
+/* ─── PEOPLE ──────────────────────────── */
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  margin-top: 56px;
+}
+
+.person {
+  background: var(--forest-lit);
+  padding: 36px 30px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+.person:hover { background: var(--forest-glo); }
+
+.person-init {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.person h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--gold-lt);
+  margin-bottom: 8px;
+}
+
+.person p {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.65;
+}
+
+/* ─── PARTNERS ────────────────────────── */
+.partners-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 44px;
+}
+
+.p-chip {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 9px 18px;
+  transition: all 0.2s;
+}
+
+.p-chip:hover {
+  color: var(--gold);
+  border-color: rgba(200,168,75,0.4);
+}
+
+/* ═══════════════════════════════════════
+   OPENDOOR SECTION
+═══════════════════════════════════════ */
+.objection-banner {
+  background: var(--gold-pale);
+  border-left: 4px solid var(--gold);
+  padding: 36px 44px;
+  margin-top: 48px;
+}
+
+.objection-banner p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--forest-mid);
+  line-height: 1.5;
+}
+
+.objection-banner .tag {
+  display: block;
+  margin-top: 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-style: normal;
+}
+
+.vs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(0,0,0,0.06);
+  margin-top: 4px;
+}
+
+.vs-col {
+  padding: 52px 48px;
+}
+
+.vs-col-a { background: var(--white); }
+.vs-col-b { background: var(--cream); position: relative; }
+
+.vs-col-b::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--gold);
+}
+
+.vs-tag {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(0,0,0,0.35);
+  margin-bottom: 20px;
+  display: block;
+}
+
+.vs-col-b .vs-tag { color: var(--gold); }
+
+.vs-col h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--forest);
+  margin-bottom: 28px;
+}
+
+.vs-col h3 em { color: var(--gold); font-style: italic; }
+
+.vs-list {
+  list-style: none;
+}
+
+.vs-list li {
+  font-size: 14px;
+  color: rgba(0,0,0,0.65);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.vs-col-b .vs-list li { color: var(--forest-mid); }
+
+.vs-list li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: rgba(0,0,0,0.3);
+}
+
+.vs-col-b .vs-list li::before { content: '→'; color: var(--gold); }
+
+.vs-list li:last-child { border-bottom: none; }
+
+.vs-note {
+  margin-top: 24px;
+  padding: 16px 20px;
+  background: rgba(0,0,0,0.04);
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(0,0,0,0.5);
+  line-height: 1.6;
+}
+
+.vs-col-b .vs-note {
+  background: rgba(200,168,75,0.12);
+  color: var(--forest-mid);
+}
+
+/* Step ladder */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(0,0,0,0.06);
+  margin: 4px 0;
+}
+
+.step {
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.step-1 { background: rgba(255,255,255,0.5); }
+.step-2 { background: rgba(255,255,255,0.7); }
+.step-3 { background: rgba(200,168,75,0.12); }
+.step-4 { background: var(--forest); border-top: 4px solid var(--gold); }
+
+.step-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.step-1 .step-n, .step-2 .step-n { color: rgba(0,0,0,0.15); }
+.step-3 .step-n { color: rgba(200,168,75,0.6); }
+.step-4 .step-n { color: var(--gold); }
+
+.step-word {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.step-1 .step-word, .step-2 .step-word { color: rgba(0,0,0,0.5); }
+.step-3 .step-word { color: var(--forest-mid); }
+.step-4 .step-word { color: var(--gold); }
+
+.step p {
+  font-size: 12.5px;
+  line-height: 1.65;
+}
+
+.step-1 p, .step-2 p { color: rgba(0,0,0,0.5); }
+.step-3 p { color: var(--forest-mid); }
+.step-4 p { color: rgba(255,255,255,0.7); }
+
+.step-note {
+  font-size: 10px;
+  letter-spacing: 1px;
+  margin-top: 14px;
+  display: block;
+  font-weight: 600;
+}
+
+.step-1 .step-note { color: rgba(0,0,0,0.25); }
+.step-4 .step-note { color: var(--gold); }
+
+.step-truth {
+  background: var(--forest);
+  padding: 44px 60px;
+  text-align: center;
+  border-top: 1px solid rgba(200,168,75,0.15);
+}
+
+.step-truth p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--white);
+  line-height: 1.5;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.step-truth strong { color: var(--gold); font-style: normal; }
+
+.both-bar {
+  background: var(--gold);
+  padding: 36px 60px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.both-plus {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px;
+  color: var(--forest);
+  line-height: 1;
+}
+
+.both-bar h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--forest);
+  margin-bottom: 10px;
+}
+
+.both-bar p {
+  font-size: 14px;
+  color: rgba(11,35,24,0.7);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════
+   WHY US / COMPARISON
+═══════════════════════════════════════ */
+.why-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(255,255,255,0.07);
+  margin-top: 60px;
+}
+
+.why-col {
+  background: var(--forest-mid);
+  padding: 52px 44px;
+}
+
+.why-col h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 28px;
+}
+
+.why-list {
+  list-style: none;
+}
+
+.why-list li {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  padding: 10px 0 10px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  line-height: 1.65;
+}
+
+.why-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 12px;
+}
+
+.why-list li:last-child { border-bottom: none; }
+
+/* ═══════════════════════════════════════
+   COMPARISON TABLE
+═══════════════════════════════════════ */
+.comp-table-wrap {
+  overflow-x: auto;
+  margin-top: 56px;
+}
+
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  min-width: 800px;
+}
+
+.comp-table thead th {
+  padding: 20px 20px;
+  text-align: center;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.th-label {
+  background: var(--forest);
+  text-align: left !important;
+  color: rgba(255,255,255,0.4);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  width: 18%;
+}
+
+.th-bad {
+  background: #151515;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.th-good {
+  background: var(--forest-lit);
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-top: 3px solid var(--gold);
+  position: relative;
+}
+
+.th-price {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.comp-table tbody td {
+  padding: 14px 20px;
+  vertical-align: top;
+  line-height: 1.6;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.td-label {
+  background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.4);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.td-bad {
+  background: #121212;
+  color: rgba(255,255,255,0.45);
+  text-align: center;
+}
+
+.td-good {
+  background: rgba(26,66,48,0.5);
+  color: rgba(255,255,255,0.9);
+  text-align: center;
+  font-weight: 500;
+}
+
+.td-good .g { color: var(--gold); }
+
+.td-price-bad {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  text-align: center;
+}
+
+.td-price-good {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  background: rgba(26,66,48,0.7) !important;
+  border-bottom: 3px solid var(--gold) !important;
+}
+
+.hundred-x {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px;
+  align-items: center;
+  background: rgba(200,168,75,0.07);
+  border: 1px solid rgba(200,168,75,0.2);
+  padding: 32px 36px;
+  margin-top: 28px;
+}
+
+.hx-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.hundred-x h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.hundred-x p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════
+   COST HERO
+═══════════════════════════════════════ */
+.cost-hero {
+  background: var(--gold);
+  padding: 90px 72px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cost-hero::before {
+  content: '₹';
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 500px;
+  color: rgba(11,35,24,0.07);
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.cost-hero h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(26px, 4vw, 46px);
+  font-weight: 600;
+  color: var(--forest);
+  max-width: 700px;
+  margin: 0 auto 52px;
+  line-height: 1.2;
+  position: relative;
+}
+
+.cost-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 60px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.cost-item { text-align: center; }
+
+.cost-amt {
+  font-family: 'Bebas Neue', sans-serif;
+  display: block;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.cost-bad .cost-amt {
+  font-size: clamp(36px, 5vw, 60px);
+  color: rgba(11,35,24,0.28);
+  text-decoration: line-through;
+}
+
+.cost-bad label {
+  font-size: 12px;
+  color: rgba(11,35,24,0.45);
+  display: block;
+  line-height: 1.5;
+}
+
+.cost-vs {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  color: rgba(11,35,24,0.35);
+  font-style: italic;
+  align-self: center;
+}
+
+.cost-good .cost-amt {
+  font-size: clamp(64px, 9vw, 110px);
+  color: var(--forest);
+}
+
+.cost-good label {
+  font-size: 13px;
+  color: var(--forest);
+  font-weight: 600;
+  display: block;
+  line-height: 1.6;
+}
+
+.cost-subline {
+  font-size: 14px;
+  color: rgba(11,35,24,0.6);
+  margin-top: 40px;
+  position: relative;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════
+   SCHOOL BENEFITS
+═══════════════════════════════════════ */
+.benefit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(0,0,0,0.06);
+  margin-top: 60px;
+}
+
+.benefit-card {
+  background: var(--white);
+  padding: 52px 48px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+
+.benefit-card:hover {
+  box-shadow: inset 0 0 0 1px rgba(200,168,75,0.4);
+}
+
+.b-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 80px;
+  color: rgba(200,168,75,0.12);
+  position: absolute;
+  top: 16px;
+  right: 28px;
+  line-height: 1;
+}
+
+.benefit-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--forest);
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+
+.benefit-card p {
+  font-size: 14.5px;
+  color: rgba(11,35,24,0.6);
+  line-height: 1.75;
+}
+
+/* Testimonial */
+.testimonial-band {
+  background: var(--forest-mid);
+  border-left: 4px solid var(--gold);
+  padding: 48px 60px;
+  margin-top: 4px;
+  position: relative;
+}
+
+.testimonial-band::before {
+  content: '\201C';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 140px;
+  color: rgba(200,168,75,0.12);
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  line-height: 1;
+}
+
+.testimonial-band p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.65;
+  max-width: 800px;
+  position: relative;
+}
+
+.testimonial-band cite {
+  display: block;
+  margin-top: 20px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-style: normal;
+  position: relative;
+}
+
+/* ═══════════════════════════════════════
+   STUDENT WINS
+═══════════════════════════════════════ */
+.wins-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  margin-top: 60px;
+}
+
+.win {
+  background: var(--forest-mid);
+  padding: 36px 28px;
+  text-align: center;
+  transition: background 0.3s;
+}
+
+.win:hover { background: var(--forest-lit); }
+
+.win-icon {
+  font-size: 30px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.win h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--gold-lt);
+  margin-bottom: 10px;
+}
+
+.win p {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.65;
+}
+
+/* ─── PHASES ──────────────────────────── */
+.phases-track {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  margin-top: 60px;
+  position: relative;
+}
+
+.phases-track::before {
+  content: '';
+  position: absolute;
+  top: 36px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(to right, rgba(200,168,75,0.3), var(--gold), rgba(200,168,75,0.3));
+}
+
+.phase-item { text-align: center; padding: 0 12px; }
+
+.phase-dot {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--forest-lit);
+  border: 1.5px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: var(--gold);
+  position: relative;
+  z-index: 1;
+  transition: background 0.3s;
+}
+
+.phase-item:hover .phase-dot { background: var(--forest-glo); }
+
+.phase-item h4 {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.phase-item p {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.65;
+}
+
+/* ═══════════════════════════════════════
+   CLOSING
+═══════════════════════════════════════ */
+.closing {
+  background: var(--forest);
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+.closing::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(160deg, var(--forest-lit) 0%, var(--forest) 100%);
+  clip-path: polygon(0 0, 85% 0, 65% 100%, 0 100%);
+}
+
+.closing::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  right: 0;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(200,168,75,0.12) 0%, transparent 70%);
+}
+
+.closing-inner {
+  position: relative;
+  z-index: 1;
+  padding: 120px 80px;
+  text-align: center;
+}
+
+.closing-inner h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 6vw, 76px);
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.closing-inner h2 em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.closing-rule {
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+  margin: 44px auto;
+}
+
+.ivy-quote {
+  background: rgba(200,168,75,0.08);
+  border: 1px solid rgba(200,168,75,0.2);
+  padding: 28px 40px;
+  max-width: 740px;
+  margin: 0 auto 52px;
+}
+
+.ivy-quote p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.65;
+}
+
+.ivy-quote strong { color: var(--gold); font-style: normal; }
+
+.cta-items {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.cta-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 15px;
+  color: rgba(255,255,255,0.7);
+}
+
+.cta-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--forest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.cta-item strong { color: var(--gold); }
+
+.price-pill {
+  display: inline-block;
+  background: var(--forest-lit);
+  border: 1px solid rgba(200,168,75,0.35);
+  padding: 16px 36px;
+  margin-bottom: 60px;
+}
+
+.price-pill span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.price-pill small {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 4px;
+}
+
+.final-stamp {
+  border-top: 1px solid rgba(200,168,75,0.18);
+  padding-top: 52px;
+}
+
+.final-stamp p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(16px, 2vw, 22px);
+  font-style: italic;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.65;
+  max-width: 640px;
+  margin: 0 auto 32px;
+}
+
+.engineering-line {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(24px, 3.5vw, 44px);
+  color: var(--gold);
+  letter-spacing: 3px;
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width: 900px) {
+  .cover-inner { padding: 48px 36px; }
+  .wrap, .wrap-tight { padding: 72px 36px; }
+  .statement-band { padding: 48px 36px; }
+  .cost-hero { padding: 72px 36px; }
+  .closing-inner { padding: 80px 36px; }
+  .problem-grid, .ecosystem-grid, .who-layout,
+  .vs-grid, .why-cols, .benefit-grid,
+  .wins-grid, .steps { grid-template-columns: 1fr; }
+  .people-grid { grid-template-columns: 1fr 1fr; }
+  .phases-track { grid-template-columns: 1fr 1fr; }
+  .phases-track::before { display: none; }
+  .both-bar { grid-template-columns: 1fr; gap: 16px; }
+  .cost-row { flex-direction: column; gap: 32px; }
+  .hundred-x { grid-template-columns: 1fr; }
+  .cover-top { flex-direction: column; gap: 16px; }
+  .cover-bottom { flex-direction: column; }
+}
+
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}
+
+/* ─── ENTRANCE ANIMATIONS ─────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.cover-eyebrow { animation: fadeUp 0.8s 0.2s both; }
+.cover-h1      { animation: fadeUp 0.9s 0.4s both; }
+.cover-tagline { animation: fadeUp 0.9s 0.65s both; }
+.cover-bottom  { animation: fadeUp 0.8s 0.85s both; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     COVER
+═══════════════════════════════════════ -->
+<section class="cover">
+  <div class="cover-inner">
+    <div class="cover-top">
+      <div class="cover-logo-text">A YoungPreneurs Initiative</div>
+      <div class="cover-partner-tag">
+        <span style="color:rgba(255,190,80,0.9); font-size:11px; letter-spacing:2px; display:block; margin-bottom:6px;">✦ Officially Endorsed · Startup India · Govt. of India</span>
+        Knowledge Partner: <strong>IIT Kharagpur</strong><br>
+        Media Partner: <strong>Times of India</strong><br>
+        Incubation: <strong>AIC BIMTECH</strong>
+      </div>
+    </div>
+
+    <div class="cover-hero">
+      <div class="cover-eyebrow">India's First School-Integrated Innovation Ecosystem</div>
+      <div class="cover-h1">
+        FUTURE<span class="titans">TITANS</span>
+      </div>
+      <div class="cover-tagline">
+        <h2>Engineering a <em>Solution-Seeking</em> Generation.</h2>
+      </div>
+    </div>
+
+    <div class="cover-bottom">
+      <div class="cover-bottom-left">Skill · Challenge · Community · ₹1,500 per student</div>
+      <div class="cover-bottom-right">
+        <div class="partner-badge" style="border-color:rgba(255,136,0,0.5); color:rgba(255,200,100,0.9);">✦ Endorsed by Startup India · Govt. of India</div>
+        <div class="partner-badge">IIT Kharagpur</div>
+        <div class="partner-badge">Times of India</div>
+        <div class="partner-badge">AIC BIMTECH</div>
+        <div class="partner-badge">AIP</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     STARTUP INDIA ENDORSEMENT BAND
+═══════════════════════════════════════ -->
+<div style="background:var(--forest-mid); border-top:2px solid rgba(255,165,0,0.3); border-bottom:1px solid rgba(255,255,255,0.07); padding:20px 72px; display:flex; align-items:center; justify-content:center; gap:28px; flex-wrap:wrap;">
+
+  <!-- Startup India wordmark SVG -->
+  <svg width="160" height="36" viewBox="0 0 160 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+    <!-- Hashtag mark -->
+    <text x="0" y="26" font-family="Arial Black, sans-serif" font-size="22" font-weight="900" fill="#FF6B00" opacity="0.9">#</text>
+    <text x="18" y="26" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="white" opacity="0.85">startup</text>
+    <text x="18" y="36" font-family="Arial, sans-serif" font-size="11" font-weight="400" fill="white" opacity="0.5" letter-spacing="3">india</text>
+  </svg>
+
+  <div style="width:1px; height:32px; background:rgba(255,255,255,0.15); flex-shrink:0;"></div>
+
+  <div>
+    <div style="font-size:10px; letter-spacing:3px; text-transform:uppercase; color:rgba(255,165,0,0.8); font-weight:600; margin-bottom:4px;">Official Endorsement</div>
+    <div style="font-size:14px; color:rgba(255,255,255,0.7); font-family:'Outfit',sans-serif;">Recognised by Startup India · Department for Promotion of Industry &amp; Internal Trade · Government of India</div>
+  </div>
+
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     THE PROBLEM
+═══════════════════════════════════════ -->
+<section class="s-dark">
+  <div class="wrap">
+    <div class="s-label s-label-dark">The Problem</div>
+    <h2 class="h-display light">Your students are being prepared<br>for a world that <em>no longer exists.</em></h2>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-card-num">01</div>
+        <h3>AI Is Replacing Answers</h3>
+        <p>Recall, repetition, marks — AI does all of this faster. The future belongs to students who can <em>create</em>, not just consume.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-num">02</div>
+        <h3>Students Know. But Can't Build.</h3>
+        <p>There is no system taking students from idea to execution. Schools cannot be expected to build one alone — and they shouldn't have to.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-num">03</div>
+        <h3>Innovation Is Still a Privilege</h3>
+        <p>Quality entrepreneurship exposure starts at <strong style="color:var(--gold)">₹60,000+</strong> and reaches a handful of children in a handful of cities. India is not lacking talent — it is lacking access.</p>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>India needs young people who know how to build — not just answer. That gap is what Future Titans exists to close.</p>
+      <cite>— Devika Majumder, Founder · YoungPreneurs</cite>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     STATEMENT BAND
+═══════════════════════════════════════ -->
+<div class="statement-band">
+  <p>Not a workshop. Not a competition. Not a course.<br><strong>India's first end-to-end innovation ecosystem — built inside your school.</strong></p>
+</div>
+
+<!-- Decision trigger — elevation framing -->
+<section class="s-dark" style="padding:0;">
+  <div style="padding:72px 80px; text-align:center; border-top:1px solid rgba(255,255,255,0.07);">
+    <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(20px,2.5vw,28px); color:rgba(255,255,255,0.55); line-height:1.8; max-width:780px; margin:0 auto; font-style:italic;">
+      The question the world is asking — and parents are beginning to ask —<br>
+      is not whether your students can think.<br><br>
+      <strong style="color:var(--white); font-style:normal; font-size:clamp(22px,2.8vw,32px);">It is whether they can build.</strong>
+    </p>
+    <div style="width:60px; height:2px; background:var(--gold); margin:40px auto;"></div>
+    <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(18px,2.2vw,24px); color:var(--gold); font-style:italic; max-width:680px; margin:0 auto; line-height:1.65;">
+      Future Titans is for the schools ready to answer that question —<br>
+      before it becomes the loudest one in the room.
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     OUR SOLUTION
+═══════════════════════════════════════ -->
+<section class="s-dark">
+  <div class="wrap">
+    <div class="s-label s-label-dark">Our Solution</div>
+    <h2 class="h-display light">One system. Three stages.<br><em>Every student grows.</em></h2>
+    <p style="color:rgba(255,255,255,0.4); font-size:13px; letter-spacing:2px; text-transform:uppercase; font-family:'Outfit',sans-serif; margin-top:12px; font-weight:500;">India's First Holistic Innovation Capability Ecosystem for Schools</p>
+
+    <div class="ecosystem-grid">
+      <div class="eco-card">
+        <span class="eco-num">01</span>
+        <span class="eco-word">SKILL</span>
+        <div class="eco-rule"></div>
+        <p>5-part mandatory workshop series. Every student builds real capability before they compete. No one walks away empty-handed.</p>
+        <div style="margin-top:20px; padding-top:20px; border-top:1px solid rgba(200,168,75,0.2);">
+          <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:10px;">
+            <span style="font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(200,168,75,0.6); border:1px solid rgba(200,168,75,0.2); padding:4px 12px; font-weight:600;">Beginner</span>
+            <span style="font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(200,168,75,0.8); border:1px solid rgba(200,168,75,0.35); padding:4px 12px; font-weight:600;">Intermediate</span>
+            <span style="font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); border:1px solid rgba(200,168,75,0.6); padding:4px 12px; font-weight:600;">Advanced</span>
+          </div>
+          <p style="font-size:12px; color:rgba(255,255,255,0.4); font-style:italic; line-height:1.5;">Designed to meet every student exactly where they are.</p>
+        </div>
+      </div>
+      <div class="eco-card">
+        <span class="eco-num">02</span>
+        <span class="eco-word">CHALLENGE</span>
+        <div class="eco-rule"></div>
+        <p>Pan-India Innovation Challenge. Multi-stage: video pitch → national bootcamp → live finale before industry leaders and investors.</p>
+      </div>
+      <div class="eco-card">
+        <span class="eco-num">03</span>
+        <span class="eco-word">COMMUNITY</span>
+        <div class="eco-rule"></div>
+        <p>Induction into the Future Titans Innovation Club. Mentorship, peer network, investor access — the journey continues beyond the competition.</p>
+      </div>
+    </div>
+
+    <!-- Zero burden — moved up per feedback -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; margin-top:4px; background:rgba(255,255,255,0.06);">
+      <div style="background:var(--forest-lit); padding:36px 40px;">
+        <div style="font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:16px;">For Your School</div>
+        <p style="font-size:15px; color:rgba(255,255,255,0.75); line-height:1.75;">No curriculum disruption. No extra staff load. NEP 2020-aligned. Plug-and-play from day one. We handle everything — you get all the credit.</p>
+      </div>
+      <div style="background:var(--forest-mid); padding:36px 40px; border-left:3px solid var(--gold);">
+        <div style="font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:16px;">Backed by Patent-Pending Science</div>
+        <p style="font-size:15px; color:rgba(255,255,255,0.65); line-height:1.75;">Proprietary frameworks and a student-level Solution Seeking Index (SSI™) give you measurable, auditable proof of every student's growth — something no other program offers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     WHO WE ARE
+═══════════════════════════════════════ -->
+<section class="s-dark">
+  <div class="wrap" style="padding-top:0; border-top:1px solid rgba(255,255,255,0.07);">
+    <div style="padding-top:80px;">
+    <div class="s-label s-label-dark">Who We Are</div>
+    <h2 class="h-display light">Built by practitioners.<br><em>Backed by institutions.</em></h2>
+
+    <div class="who-layout">
+      <div>
+        <div class="mission-block">
+          <span class="label">Our Mission</span>
+          <p>To make world-class innovation education accessible to every student in India — regardless of school tier or family income. One generation of solution-builders at a time.</p>
+        </div>
+        <div class="mission-block">
+          <span class="label">Our Vision</span>
+          <p>Every school an innovation hub. Every teacher a mentor. Every student a builder. The gap between idea and impact — measured in weeks, not decades.</p>
+        </div>
+        <div style="margin-top:8px; border-left:2px solid var(--gold); padding-left:28px;">
+          <p style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--gold); letter-spacing:2px; line-height:1.3;">Engineering a Solution-Seeking Generation.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="stats-grid">
+          <div class="stat-cell">
+            <span class="stat-num">9+</span>
+            <p>Full features across India's most trusted media platforms</p>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num">₹40L</span>
+            <p>Total prize pool for India's most brilliant young innovators</p>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num">50+</span>
+            <p>Top finalists get incubation from MIT, McKinsey & Siemens experts</p>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num">NEP</span>
+            <p>2020-aligned · Co-curricular · Zero academic disruption</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Media logos strip -->
+    <div style="margin-top:4px; background:var(--forest-mid); padding:36px 40px; border-top:1px solid rgba(255,255,255,0.07);">
+      <div style="font-size:10px; letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,0.3); font-weight:600; margin-bottom:28px;">Featured In</div>
+      <div style="display:flex; flex-wrap:wrap; gap:36px; align-items:center;">
+
+        <!-- Economic Times -->
+        <svg height="22" viewBox="0 0 180 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.65; flex-shrink:0;">
+          <rect width="18" height="28" fill="white"/>
+          <text x="24" y="21" font-family="Georgia, serif" font-size="19" font-weight="700" fill="white" letter-spacing="-0.5">The Economic Times</text>
+        </svg>
+
+        <!-- CNBC -->
+        <svg height="22" viewBox="0 0 90 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.65; flex-shrink:0;">
+          <text x="0" y="21" font-family="Arial Black, sans-serif" font-size="22" font-weight="900" fill="white" letter-spacing="1">CNBC</text>
+        </svg>
+
+        <!-- Business Standard -->
+        <svg height="22" viewBox="0 0 230 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.65; flex-shrink:0;">
+          <text x="0" y="21" font-family="Georgia, serif" font-size="18" font-weight="700" fill="white">Business Standard</text>
+        </svg>
+
+        <!-- The Telegraph -->
+        <svg height="22" viewBox="0 0 200 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.65; flex-shrink:0;">
+          <text x="0" y="21" font-family="Georgia, serif" font-size="18" font-style="italic" font-weight="700" fill="white">The Telegraph</text>
+        </svg>
+
+        <!-- BW Businessworld -->
+        <svg height="22" viewBox="0 0 210 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.65; flex-shrink:0;">
+          <text x="0" y="21" font-family="Arial Black, sans-serif" font-size="16" font-weight="900" fill="white" letter-spacing="0.5">BW <tspan font-weight="400" font-family="Arial, sans-serif">Businessworld</tspan></text>
+        </svg>
+
+        <!-- The Statesman -->
+        <svg height="22" viewBox="0 0 190 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.65; flex-shrink:0;">
+          <text x="0" y="21" font-family="Georgia, serif" font-size="18" font-style="italic" fill="white">The Statesman</text>
+        </svg>
+
+        <!-- Financial Chronicle -->
+        <svg height="22" viewBox="0 0 220 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.65; flex-shrink:0;">
+          <text x="0" y="21" font-family="Georgia, serif" font-size="18" fill="white">Financial Chronicle</text>
+        </svg>
+
+        <!-- Entrepreneur India -->
+        <svg height="22" viewBox="0 0 210 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.65; flex-shrink:0;">
+          <text x="0" y="21" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="white" letter-spacing="0.3">Entrepreneur <tspan font-style="italic">India</tspan></text>
+        </svg>
+
+      </div>
+    </div>
+    <div style="margin-top:64px;">
+      <div class="s-label s-label-dark">The People Behind the Why</div>
+    </div>
+    <div class="people-grid">
+      <div class="person">
+        <div class="person-init">D</div>
+        <h4>Devika Majumder</h4>
+        <p>Founder, YoungPreneurs. Wall Street Journal-featured serial entrepreneur. TEDx Speaker. Ex-JP Morgan, State Street. Business Today 'Most Powerful Women' Nominee.</p>
+      </div>
+      <div class="person">
+        <div class="person-init">F</div>
+        <h4>Prof. Fred Katz</h4>
+        <p>Professor of Entrepreneurship, Johns Hopkins University, USA. Ivy League-calibre education — now inside your school.</p>
+      </div>
+      <div class="person">
+        <div class="person-init">P</div>
+        <h4>Prof. Partha Ghosh</h4>
+        <p>Ex-Senior Partner, McKinsey & Company. Professor of Leadership, MIT, USA. Founder, Partha Ghosh Leadership Academy, IIT Kharagpur.</p>
+      </div>
+      <div class="person">
+        <div class="person-init">J</div>
+        <h4>Dr. Julia Stamm</h4>
+        <p>Founder & CEO, SheShapesAI, London. TEDx & Keynote Speaker. LinkedIn Top Voice in AI & Innovation.</p>
+      </div>
+      <div class="person">
+        <div class="person-init">S</div>
+        <h4>Sachin Kapoor</h4>
+        <p>Ex-Senior Director, LinkedIn Asia Pacific & China. Ex-Head of Technology, Samsung. Ex-Director, Yahoo.</p>
+      </div>
+      <div class="person">
+        <div class="person-init">S</div>
+        <h4>Suman Bose</h4>
+        <p>Ex-MD & CEO, Siemens India. Ex-Senior Director, Hewlett Packard. Board Member, multiple companies.</p>
+      </div>
+    </div>
+
+    <div class="partners-row">
+      <div class="p-chip">IIT Kharagpur — Knowledge Partner</div>
+      <div class="p-chip">Times of India — Media Partner</div>
+      <div class="p-chip" style="border-color:rgba(255,136,0,0.4); color:rgba(255,200,100,0.85); display:inline-flex; align-items:center; gap:10px;">
+        <!-- Startup India logo mark -->
+        <svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" stroke="rgba(255,180,50,0.7)" stroke-width="2"/>
+          <path d="M12 28 L20 12 L28 28" stroke="rgba(255,180,50,0.9)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="20" cy="12" r="2.5" fill="rgba(255,180,50,0.9)"/>
+        </svg>
+        Officially Endorsed · Startup India · Govt. of India
+      </div>
+      <div class="p-chip">AIC BIMTECH — Incubation Partner</div>
+      <div class="p-chip">Association of Indian Principals</div>
+    </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     CRITICAL THINKING — PROGRESSION
+═══════════════════════════════════════ -->
+<section class="s-light">
+  <div class="wrap">
+    <div class="s-label">For Schools Already Investing in Thinking —</div>
+    <h2 class="h-display dark">You've built the foundation.<br><em>Here is what comes next.</em></h2>
+
+    <div class="objection-banner">
+      <p>Schools that invest in critical thinking are exactly the schools Future Titans was designed for. You've already done the hardest part — you've taught your students <em>how</em> to think. Now give them somewhere to <em>build.</em></p>
+      <span class="tag">The most forward-thinking schools don't stop at thinking. They complete the journey.</span>
+    </div>
+
+    <div class="vs-grid">
+      <div class="vs-col vs-col-a">
+        <span class="vs-tag">What You've Already Built</span>
+        <h3>Teaching students <em>how to think</em> inside a subject.</h3>
+        <ul class="vs-list">
+          <li>Structured reasoning within Science, Math, or Humanities</li>
+          <li>Workbooks, assessments, classroom questioning techniques</li>
+          <li>Makes children analyse and reason within academic contexts</li>
+          <li>Outcome: a sharper, more reflective academic thinker</li>
+        </ul>
+        <div class="vs-note">This is a strong investment. It is also Step 1 of a 4-step journey.</div>
+      </div>
+      <div class="vs-col vs-col-b">
+        <span class="vs-tag">Future Titans</span>
+        <h3>Teaches students <em>how to build</em> from what they think.</h3>
+        <ul class="vs-list">
+          <li>Solution-building in the real economy — not a textbook</li>
+          <li>Business Model Canvas, design thinking, investor pitch</li>
+          <li>Real problems. Real mentors. Real stakes.</li>
+          <li>Outcome: a student who creates value in the AI economy</li>
+        </ul>
+        <div class="vs-note">Future Titans is Steps 2, 3 and 4. Your school is already halfway there.</div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step step-1">
+        <span class="step-n">1</span>
+        <div class="step-word">Think</div>
+        <p>Question. Reason. Analyse. Build cognitive rigour.</p>
+        <span class="step-note">← Most programs stop here</span>
+      </div>
+      <div class="step step-2">
+        <span class="step-n">2</span>
+        <div class="step-word">Apply</div>
+        <p>Direct thinking to real problems. Spot gaps. Frame opportunities.</p>
+      </div>
+      <div class="step step-3">
+        <span class="step-n">3</span>
+        <div class="step-word">Build</div>
+        <p>Create solutions. Pitch ideas. Work with real mentors and real tools.</p>
+      </div>
+      <div class="step step-4">
+        <span class="step-n">4</span>
+        <div class="step-word">Scale</div>
+        <p>National stage. Incubation. Investors. A lifelong innovation community.</p>
+        <span class="step-note">← Future Titans completes this</span>
+      </div>
+    </div>
+
+    <div class="step-truth">
+      <p>You may already be teaching students <strong>how to think.</strong><br>
+      We ensure they know <strong>what to do with that thinking.</strong></p>
+    </div>
+
+    <div class="both-bar">
+      <div class="both-plus">→</div>
+      <div>
+        <h4>Your school has Step 1. Future Titans completes the journey.</h4>
+        <p>Critical thinking builds the capacity to question. Future Titans builds the capacity to act — to take that thinking and turn it into real solutions, real pitches, and real impact. Schools that already invest in thinking are not behind. They have a head start. We give them somewhere to go with it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     COMPARISON TABLE
+═══════════════════════════════════════ -->
+<section class="s-dark">
+  <div class="wrap">
+    <div class="s-label s-label-dark">The Market Reality</div>
+    <h2 class="h-display light">Every other option is either<br>a <em>fragment</em> or a <em>fortune.</em></h2>
+    <p style="color:rgba(255,255,255,0.45); font-size:15px; margin-top:16px; max-width:560px; line-height:1.7;">We looked at every program in this space. Here is what we found — and why none of them serve schools the way Future Titans does.</p>
+
+    <div class="comp-table-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th class="th-label"></th>
+          <th class="th-bad">Short Bootcamp<br><span style="font-size:10px; color:rgba(255,255,255,0.3); font-family:'Outfit',sans-serif; font-weight:400; letter-spacing:1px;">4-day program</span><br><span class="th-price">₹20,000</span></th>
+          <th class="th-bad">Residential Program<br><span style="font-size:10px; color:rgba(255,255,255,0.3); font-family:'Outfit',sans-serif; font-weight:400; letter-spacing:1px;">2-week, one city</span><br><span class="th-price">₹1,50,000</span></th>
+          <th class="th-bad">Premium Workshop<br><span style="font-size:10px; color:rgba(255,255,255,0.3); font-family:'Outfit',sans-serif; font-weight:400; letter-spacing:1px;">select cities only</span><br><span class="th-price">₹1,50,000+</span></th>
+          <th class="th-good">Future Titans<br><span style="font-size:10px; color:rgba(255,255,255,0.5); font-family:'Outfit',sans-serif; font-weight:400; letter-spacing:1px;">school-embedded · pan-India</span><br><span class="th-price" style="color:var(--gold-lt); font-size:26px;">₹1,500</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-label">Format</td>
+          <td class="td-bad">4-day bootcamp, off-campus</td>
+          <td class="td-bad">2-week residential, Bangalore only</td>
+          <td class="td-bad">Workshop series, city-specific</td>
+          <td class="td-good"><span class="g">School-embedded</span><br>Pan-India · NEP-aligned</td>
+        </tr>
+        <tr>
+          <td class="td-label">Reach</td>
+          <td class="td-bad">8 metro cities only</td>
+          <td class="td-bad">100 seats per cohort · Bangalore</td>
+          <td class="td-bad">Select cities</td>
+          <td class="td-good"><span class="g">Every school in India</span><br>Tier I, II & III</td>
+        </tr>
+        <tr>
+          <td class="td-label">Faculty</td>
+          <td class="td-bad">Startup mentors</td>
+          <td class="td-bad">Indian startup operators</td>
+          <td class="td-bad">Industry practitioners</td>
+          <td class="td-good"><span class="g">Johns Hopkins · MIT<br>McKinsey · IIT Kharagpur</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">After It Ends</td>
+          <td class="td-bad">❌ Nothing</td>
+          <td class="td-bad">❌ Go home</td>
+          <td class="td-bad">❌ Nothing</td>
+          <td class="td-good"><span class="g">Innovation Club</span><br>Year-round mentorship</td>
+        </tr>
+        <tr>
+          <td class="td-label">School Benefit</td>
+          <td class="td-bad">❌ School is a venue</td>
+          <td class="td-bad">❌ Not a school program</td>
+          <td class="td-bad">❌ School is a venue</td>
+          <td class="td-good"><span class="g">Recognition · Training<br>Innovation Club · Media</span></td>
+        </tr>
+        <tr>
+          <td class="td-label">NEP 2020</td>
+          <td class="td-bad">❌ No</td>
+          <td class="td-bad">❌ No</td>
+          <td class="td-bad">❌ No</td>
+          <td class="td-good"><span class="g">✓ Built for NEP 2020</span></td>
+        </tr>
+        <tr>
+          <td class="td-label" style="border-bottom:none;">Price per student</td>
+          <td class="td-price-bad">₹20,000</td>
+          <td class="td-price-bad">₹1,50,000<br><small style="font-size:11px; font-family:'Outfit',sans-serif; color:rgba(255,255,255,0.25);">+ ₹37K accommodation</small></td>
+          <td class="td-price-bad">₹1,50,000+</td>
+          <td class="td-price-good">₹1,500<br><small style="font-size:11px; font-family:'Outfit',sans-serif; color:rgba(255,255,255,0.5); font-weight:300;">All-inclusive. No hidden fees.</small></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="hundred-x">
+      <div class="hx-num">100×</div>
+      <div>
+        <h4>Same Johns Hopkins & MIT faculty. 100 times more accessible.</h4>
+        <p>School-embedded. Pan-India. Year-round. With a ₹40L prize pool, measurable outcomes per student, and an Innovation Club that outlasts the program — for every student in your school, not a handful of seats in one city.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     COST HERO
+═══════════════════════════════════════ -->
+<div class="cost-hero">
+  <h2>Previously limited to a few.<br>Now available to every student in your school.</h2>
+  <div class="cost-row">
+    <div class="cost-item cost-bad">
+      <span class="cost-amt">₹1,50,000</span>
+      <label>Residential programs<br><small>2 weeks · One city · Limited seats</small></label>
+    </div>
+    <div class="cost-vs">·</div>
+    <div class="cost-item cost-bad">
+      <span class="cost-amt" style="font-size:clamp(28px,4vw,52px)">₹20,000</span>
+      <label>Short bootcamps<br><small>4 days · Metro cities only</small></label>
+    </div>
+    <div class="cost-vs">vs</div>
+    <div class="cost-item cost-good">
+      <span class="cost-amt">₹1,500</span>
+      <label>Future Titans — all-inclusive<br>Every student · Every school · Year-round</label>
+    </div>
+  </div>
+  <p class="cost-subline">Johns Hopkins & MIT faculty. IIT Kharagpur. ₹40L prize pool. Innovation Club. Measurable outcomes.<br>At ₹1,500 — less than a school textbook.</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     WHAT'S IN IT FOR THE SCHOOL
+═══════════════════════════════════════ -->
+<section class="s-white">
+  <div class="wrap">
+    <div class="s-label s-label-inv">What Your School Gets</div>
+    <h2 class="h-display dark">This upgrades your school.<br><em>Without the extra work.</em></h2>
+
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <div class="b-num">1</div>
+        <h3>National Recognition</h3>
+        <p>"Torchbearer of Innovation" certification. Featured in the <em>Young India Builds</em> campaign — amplified by Times of India. Your school leads the shift. Nationally visible.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-num">2</div>
+        <h3>Teachers Who Can Lead Innovation</h3>
+        <p>Exclusive Train-the-Trainer Program by Prof. Fred Katz (Johns Hopkins) and Prof. Partha Ghosh (MIT). Your educators become year-round innovation mentors — not just exam teachers.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-num">3</div>
+        <h3>An Innovation Culture That Stays</h3>
+        <p>We build your school's Innovation & Entrepreneurship Club — a plug-and-play system for continuous student-led innovation. We don't run a program and leave. We install an ecosystem.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-num">4</div>
+        <h3>Zero Friction</h3>
+        <p>NEP 2020-aligned. Co-curricular. End-to-end support. No disruption to academics. No extra admin load. Measurable student outcomes. We handle the complexity — you take the credit.</p>
+      </div>
+    </div>
+
+    <div class="testimonial-band">
+      <p>Entrepreneurship is no longer just a skill — it's a necessity for every child to develop. YoungPreneurs is one of the best platforms to build that confidence and shape students into lifelong learners, thinkers, and problem-solvers.</p>
+      <cite>— Satabdi Bhattacharjee, Principal · The Newtown School, Kolkata</cite>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     WHAT'S IN IT FOR STUDENTS
+═══════════════════════════════════════ -->
+<section class="s-dark">
+  <div class="wrap">
+    <div class="s-label s-label-dark">What Your Students Get</div>
+    <h2 class="h-display light">An unfair advantage.<br><em>In the AI era.</em></h2>
+
+    <div class="wins-grid">
+      <div class="win"><span class="win-icon">🎓</span><h4>Johns Hopkins Faculty</h4><p>Ivy League-calibre teaching — brought directly to every Future Titan, in every school.</p></div>
+      <div class="win"><span class="win-icon">🧠</span><h4>Built to Think & Build</h4><p>Frameworks that train students to solve the problems AI cannot. Creativity. Resilience. Systems thinking.</p></div>
+      <div class="win"><span class="win-icon">🏆</span><h4>₹40 Lakhs in Prizes</h4><p>Top 50 get incubation from MIT, McKinsey & Siemens. National recognition on a real stage.</p></div>
+      <div class="win"><span class="win-icon">📜</span><h4>A Certificate That Matters</h4><p>Verifiable credential backed by IIT Kharagpur. Proof of capability — not just attendance.</p></div>
+      <div class="win"><span class="win-icon">💡</span><h4>A Solution-Seeking Mindset</h4><p>The one skill AI can never replace. Students stop seeing problems and start seeing possibilities — for life, not just for the program.</p></div>
+      <div class="win"><span class="win-icon">🤝</span><h4>Investor Access</h4><p>Present to real investors. Turn ideas into funded realities — not just school projects.</p></div>
+      <div class="win"><span class="win-icon">🌐</span><h4>A Network for Life</h4><p>India's most ambitious young innovators. Peers, mentors, alumni. A community that grows with them.</p></div>
+      <div class="win"><span class="win-icon">🚀</span><h4>An AI Co-Founder</h4><p>Zunova — thinks with the student, not at them. From first idea to final pitch, every step of the way.</p></div>
+    </div>
+
+    <div style="margin-top:80px;">
+      <div class="s-label s-label-dark">The Journey — Five Stages</div>
+    </div>
+    <div class="phases-track">
+      <div class="phase-item">
+        <div class="phase-dot">1</div>
+        <h4>Learn</h4>
+        <p>5-part workshop with global faculty. Skills first — always.</p>
+      </div>
+      <div class="phase-item">
+        <div class="phase-dot">2</div>
+        <h4>Participate</h4>
+        <p>Pan-India Innovation Challenge. Ideas guided by AI Co-Founder Zunova.</p>
+      </div>
+      <div class="phase-item">
+        <div class="phase-dot">3</div>
+        <h4>Pitch</h4>
+        <p>Video pitch — idea, evidence, early tests. Evaluated nationally.</p>
+      </div>
+      <div class="phase-item">
+        <div class="phase-dot">4</div>
+        <h4>Grand Finale</h4>
+        <p>Top 50. 3-day bootcamp. Live pitch to industry leaders.</p>
+      </div>
+      <div class="phase-item">
+        <div class="phase-dot">★</div>
+        <h4>Belong</h4>
+        <p>Future Titans Innovation Club. Mentorship, incubation, community — for life.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     CLOSING
+═══════════════════════════════════════ -->
+<section class="closing">
+  <div class="closing-inner">
+    <h2>The future of a nation<br>is built inside its <em>classrooms.</em></h2>
+    <div class="closing-rule"></div>
+
+    <div class="ivy-quote">
+      <p>This is the first time a school can offer Ivy League-level entrepreneurial exposure to <strong>every student — not just a few</strong> — without changing its academic structure.</p>
+    </div>
+
+    <!-- Binary question — standalone, no explanation before it -->
+    <div style="max-width:680px; margin:0 auto 52px; position:relative;">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(20px,2.5vw,26px); color:rgba(255,255,255,0.65); line-height:1.8; font-style:italic;">
+        Will your school be among the first<br>to teach them <strong style="color:var(--gold); font-style:normal;">how to build?</strong>
+      </p>
+    </div>
+
+    <div class="cta-items">
+      <div class="cta-item">
+        <div class="cta-icon">📞</div>
+        <span>Call / WhatsApp: <strong>+91 96749 08532</strong></span>
+      </div>
+      <div class="cta-item">
+        <div class="cta-icon">✉</div>
+        <span>Email: <strong>devika@youngpreneurs.ai</strong></span>
+      </div>
+      <div class="cta-item">
+        <div class="cta-icon">🌐</div>
+        <span><strong>youngpreneurs.ai</strong></span>
+      </div>
+    </div>
+
+    <div class="price-pill">
+      <span>₹1,500 per student</span>
+      <small>All-inclusive · No hidden fees · Start with a pilot — scale at your pace</small>
+    </div>
+
+    <div class="final-stamp">
+      <p>"Great leaders are not born. They are made — inside schools like yours, by educators like you."</p>
+      <div class="engineering-line">Engineering a Solution-Seeking Generation.</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -5,7 +5,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../providers/chat_provider.dart';
 import '../../data/models/chat_model.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '../widgets/zunova_avatar.dart';
+import '../widgets/zunnova_avatar.dart';
 
 class ChapterAiChatScreen extends ConsumerStatefulWidget {
   final String moduleId;
@@ -68,12 +68,12 @@ class _ChapterAiChatScreenState extends ConsumerState<ChapterAiChatScreen> {
       appBar: AppBar(
         title: Row(
           children: [
-            ZunovaAvatar(
+            zunnovaAvatar(
               size: 36,
               isTalking: chatState.isLoading,
             ),
             const SizedBox(width: 12),
-            const Text('Zunova', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text('zunnova', style: TextStyle(fontWeight: FontWeight.bold)),
           ],
         ),
         actions: [
@@ -83,7 +83,8 @@ class _ChapterAiChatScreenState extends ConsumerState<ChapterAiChatScreen> {
               onPressed: () async {
                 final success = await ref.read(chatControllerProvider.notifier).finishChapter();
                 if (success && context.mounted) {
-                   _showCompletionDialog(context, chatState.ssiScore);
+                   final updatedState = ref.read(chatControllerProvider);
+                   _showCompletionDialog(context, updatedState.ssiScore, isModuleCompleted: updatedState.isModuleCompleted);
                 }
               },
               icon: const Icon(Icons.check_circle_outline, color: AppTheme.primaryGoldDark),
@@ -111,7 +112,7 @@ class _ChapterAiChatScreenState extends ConsumerState<ChapterAiChatScreen> {
             Expanded(
               child: chatState.isLoading && chatState.messages.isEmpty
                   ? const Center(
-                      child: ZunovaAvatar(
+                      child: zunnovaAvatar(
                         size: 150,
                         isTalking: true,
                       ),
@@ -181,7 +182,7 @@ class _ChapterAiChatScreenState extends ConsumerState<ChapterAiChatScreen> {
                                  textInputAction: TextInputAction.send,
                                  onSubmitted: (_) => _sendMessage(),
                                  decoration: const InputDecoration(
-                                   hintText: 'Ask Zunova...',
+                                   hintText: 'Ask zunnova...',
                                    border: InputBorder.none,
                                    enabledBorder: InputBorder.none,
                                    focusedBorder: InputBorder.none,
@@ -270,7 +271,7 @@ class _ChapterAiChatScreenState extends ConsumerState<ChapterAiChatScreen> {
           ),
           border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
         ),
-        child: const ZunovaAvatar(
+        child: const zunnovaAvatar(
           size: 32,
           isTalking: true,
         ),
@@ -278,7 +279,7 @@ class _ChapterAiChatScreenState extends ConsumerState<ChapterAiChatScreen> {
     );
   }
 
-  void _showCompletionDialog(BuildContext context, Map<String, dynamic>? score) {
+  void _showCompletionDialog(BuildContext context, Map<String, dynamic>? score, {bool isModuleCompleted = false}) {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -289,31 +290,65 @@ class _ChapterAiChatScreenState extends ConsumerState<ChapterAiChatScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Icon(Icons.star, color: AppTheme.primaryGold, size: 64),
+            Icon(isModuleCompleted ? Icons.emoji_events : Icons.star, color: AppTheme.primaryGold, size: 64),
             const SizedBox(height: 24),
             Text(
-              'Chapter Completed!',
+              isModuleCompleted ? 'Module Completed!' : 'Chapter Completed!',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
             Text(
-              'Your SSI score has been updated based on your interaction. Keep up the great work!',
+              isModuleCompleted
+                 ? 'You have successfully finished all chapters for this module. You can now submit your idea!'
+                 : 'Your SSI score has been updated based on your interaction. Keep up the great work!',
               style: TextStyle(color: AppTheme.textSecondary, height: 1.5),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 32),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  context.pop(); // Close dialog
-                  context.pop(); // Pop chat screen
-                  context.pop(); // Pop player screen, back to module detail
-                },
-                child: const Text('Back to Course'),
+            if (isModuleCompleted) ...[
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.primaryGold,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                  onPressed: () {
+                    context.pop(); // Close dialog
+                    context.pop(); // Pop chat screen
+                    context.pop(); // Pop player screen
+                    context.push('/submit-idea');
+                  },
+                  child: const Text('Submit Your Idea', style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
               ),
-            )
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                  onPressed: () {
+                    context.pop();
+                    context.pop();
+                    context.pop();
+                  },
+                  child: const Text('Maybe Later'),
+                ),
+              ),
+            ] else ...[
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    context.pop(); // Close dialog
+                    context.pop(); // Pop chat screen
+                    context.pop(); // Pop player screen, back to module detail
+                  },
+                  child: const Text('Back to Course'),
+                ),
+              ),
+            ],
           ],
         ),
       ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/constants/api_constants.dart';
+import '../../../../core/api/api_client.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
 import '../../../auth/data/models/user_model.dart';
 import '../providers/dashboard_provider.dart';
@@ -16,6 +18,28 @@ class DashboardScreen extends ConsumerStatefulWidget {
 }
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+  int _price = 999;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchPrice();
+  }
+
+  Future<void> _fetchPrice() async {
+    try {
+      final dio = ref.read(dioProvider);
+      final response = await dio.get(ApiConstants.paymentStatus);
+      if (response.statusCode == 200 && mounted) {
+        setState(() {
+          _price = response.data['price'] ?? 999;
+        });
+      }
+    } catch (_) {
+      // keep default price on error
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +95,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (user != null && !user.isPaid)
-                      _buildPaymentBanner(context),
+                      _buildPaymentBanner(context, _price),
                       
                     _buildHeader(user, overallProgress),
                     const SizedBox(height: 24),
@@ -120,7 +144,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
   // ALL UI WIDGET METHODS BELOW
   
-  Widget _buildPaymentBanner(BuildContext context) {
+  Widget _buildPaymentBanner(BuildContext context, int price) {
     return Container(
       margin: const EdgeInsets.only(bottom: 24),
       padding: const EdgeInsets.all(20),
@@ -160,14 +184,14 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
-              onPressed: () => context.push('/payment'),
+              onPressed: () => context.push('/profile/payment'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppTheme.primaryGold,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
               icon: const Icon(Icons.credit_card, size: 18),
-              label: const Text('Pay ₹999', style: TextStyle(fontWeight: FontWeight.bold)),
+              label: Text('Pay ₹$price', style: const TextStyle(fontWeight: FontWeight.bold)),
             ),
           ),
         ],
