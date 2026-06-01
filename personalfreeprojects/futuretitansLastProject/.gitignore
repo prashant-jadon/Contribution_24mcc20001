@@ -13,4 +13,6 @@ out/
 .idea/
 uploads/
 tmp/
+*.csv
+prashantjadon_credentials.csv
 
