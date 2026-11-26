@@ -1,0 +1,265 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pitch Deck PDF</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== PAGE SETUP ===== */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            background: #0f0f10;
+            color: white;
+        }
+
+        /* ===== SLIDE SYSTEM ===== */
+        section {
+            width: 210mm;
+            height: 297mm;
+            page-break-after: always;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+        /* ===== CONTENT WRAPPER ===== */
+        .wrap {
+            width: 100%;
+            max-width: 1000px;
+            padding: 60px;
+            text-align: center;
+
+            /* SCALE TO FIT */
+            transform: scale(0.9);
+            transform-origin: center;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 24px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        blockquote {
+            font-size: 20px;
+            font-style: italic;
+        }
+
+        /* PRINT COLORS */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SECTION 1 -->
+    <section>
+        <div class="wrap">
+            <h1>A young Initiative</h1>
+            <h2>to AIC BIMTECH AIP</h2>
+        </div>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section>
+        <div class="wrap">
+            <h2>The Problem</h2>
+            <p>Students are taught to think, but not to act.</p>
+            <p><strong>Devika Majumder</strong><br>Founder · YoungPreneurs</p>
+        </div>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section>
+        <div class="wrap">
+            <h2>Not a workshop</h2>
+            <p>This is not just another program — it's a movement.</p>
+            <p>before it becomes the loudest one in the room.</p>
+        </div>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section>
+        <div class="wrap">
+            <h2>Our Solution</h2>
+            <p>
+                Proprietary frameworks and a student-level Solution Seeking Index (SSI™)
+                give measurable, auditable proof of every student's growth.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section>
+        <div class="wrap">
+            <h2>Who We Are</h2>
+            <h3>Featured In</h3>
+            <ul>
+                <li>The Economic Times</li>
+                <li>CNBC</li>
+                <li>Business Standard</li>
+                <li>The Telegraph</li>
+                <li>BW Businessworld</li>
+                <li>The Statesman</li>
+                <li>Financial Chronicle</li>
+                <li>Entrepreneur India</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section>
+        <div class="wrap">
+            <h2>The People Behind the Why</h2>
+            <ul>
+                <li>IIT Kharagpur — Knowledge Partner</li>
+                <li>Times of India — Media Partner</li>
+                <li>Startup India — Govt. of India</li>
+                <li>AIC BIMTECH — Incubation Partner</li>
+                <li>Association of Indian Principals</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- SECTION 7 -->
+    <section>
+        <div class="wrap">
+            <h2>For Schools Already Investing in Thinking</h2>
+            <p>
+                Future Titans is Steps 2, 3 and 4.
+                Your school is already halfway there.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 8 -->
+    <section>
+        <div class="wrap">
+            <h2>1 — Think</h2>
+            <p>Question. Reason. Analyse. Build cognitive rigour.</p>
+            <p><strong>Most programs stop here</strong></p>
+            <p>
+                Future Titans completes the journey —
+                turning thinking into action and impact.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 9 -->
+    <section>
+        <div class="wrap">
+            <h2>The Market Reality</h2>
+            <p>Same Johns Hopkins & MIT faculty. 100x more accessible.</p>
+            <p>
+                ₹40L prize pool. Innovation Club. Measurable outcomes.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 10 -->
+    <section>
+        <div class="wrap">
+            <h2>Previously limited to a few</h2>
+            <p>
+                Johns Hopkins & MIT faculty. IIT Kharagpur. ₹40L prize pool.
+            </p>
+            <p><strong>At ₹1,500 — less than a school textbook.</strong></p>
+        </div>
+    </section>
+
+    <!-- SECTION 11 -->
+    <section>
+        <div class="wrap">
+            <h2>What Your School Gets</h2>
+            <blockquote>
+                Entrepreneurship is no longer just a skill — it's a necessity.
+            </blockquote>
+            <p>
+                — Satabdi Bhattacharjee<br>
+                Principal · The Newtown School, Kolkata
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 12 -->
+    <section>
+        <div class="wrap">
+            <h2>What Your Students Get</h2>
+            <p><strong>An AI Co-Founder</strong></p>
+            <p>
+                Zunnova — thinks with the student, from idea to final pitch.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 13 -->
+    <section>
+        <div class="wrap">
+            <h2>The Journey — Five Stages</h2>
+            <p>
+                Future Titans Innovation Club. Mentorship, incubation,
+                community — for life.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 14 -->
+    <section>
+        <div class="wrap">
+            <h1>The future of a nation is built inside its classrooms.</h1>
+            <p>
+                Great leaders are not born. They are made inside schools like yours.
+            </p>
+            <h3>Engineering a Solution-Seeking Generation.</h3>
+        </div>
+    </section>
+
+</body>
+
+</html>
+```

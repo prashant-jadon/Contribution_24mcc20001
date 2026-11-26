@@ -1,0 +1,141 @@
+Analyzing app...                                                
+
+   info • 'background' is deprecated and shouldn't be used. Use surface instead. This feature was deprecated after v3.18.0-0.1.pre • lib/core/theme/app_theme.dart:26:9 • deprecated_member_use
+   info • 'onBackground' is deprecated and shouldn't be used. Use onSurface instead. This feature was deprecated after v3.18.0-0.1.pre • lib/core/theme/app_theme.dart:29:9 • deprecated_member_use
+  error • Target of URI doesn't exist: '../models/chat_model.dart' • lib/features/ai_chat/presentation/providers/chat_provider.dart:2:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: '../repositories/chat_repository.dart' • lib/features/ai_chat/presentation/providers/chat_provider.dart:3:8 • uri_does_not_exist
+  error • The name 'ChatMessageModel' isn't a type, so it can't be used as a type argument • lib/features/ai_chat/presentation/providers/chat_provider.dart:6:14 • non_type_as_type_argument
+  error • The name 'ChatMessageModel' isn't a type, so it can't be used as a type argument • lib/features/ai_chat/presentation/providers/chat_provider.dart:21:10 • non_type_as_type_argument
+  error • Undefined name 'StateNotifierProvider' • lib/features/ai_chat/presentation/providers/chat_provider.dart:37:32 • undefined_identifier
+  error • Undefined name 'chatRepositoryProvider' • lib/features/ai_chat/presentation/providers/chat_provider.dart:38:32 • undefined_identifier
+  error • Classes can only extend other classes • lib/features/ai_chat/presentation/providers/chat_provider.dart:46:30 • extends_non_class
+  error • Undefined class 'ChatRepository' • lib/features/ai_chat/presentation/providers/chat_provider.dart:47:9 • undefined_class
+  error • Undefined class 'ChatRepository' • lib/features/ai_chat/presentation/providers/chat_provider.dart:52:14 • undefined_class
+  error • Too many positional arguments: 0 expected, but 1 found • lib/features/ai_chat/presentation/providers/chat_provider.dart:55:40 • extra_positional_arguments
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:65:9 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:65:17 • undefined_identifier
+warning • The value of the local variable 'response' isn't used • lib/features/ai_chat/presentation/providers/chat_provider.dart:66:15 • unused_local_variable
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:69:9 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:76:9 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:84:7 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:84:15 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:89:32 • undefined_identifier
+  error • The method 'ChatMessageModel' isn't defined for the type 'ChatController' • lib/features/ai_chat/presentation/providers/chat_provider.dart:91:25 • undefined_method
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:97:5 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:97:13 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:98:21 • undefined_identifier
+  error • The method 'ChatMessageModel' isn't defined for the type 'ChatController' • lib/features/ai_chat/presentation/providers/chat_provider.dart:106:25 • undefined_method
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:112:7 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:112:15 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:113:23 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:114:43 • undefined_identifier
+  error • The method 'ChatMessageModel' isn't defined for the type 'ChatController' • lib/features/ai_chat/presentation/providers/chat_provider.dart:118:28 • undefined_method
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:123:7 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:123:15 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:124:23 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:131:9 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:133:5 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:133:13 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:136:7 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:136:15 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:139:38 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:143:7 • undefined_identifier
+  error • Undefined name 'state' • lib/features/ai_chat/presentation/providers/chat_provider.dart:143:15 • undefined_identifier
+  error • Target of URI doesn't exist: '../models/chat_model.dart' • lib/features/ai_chat/presentation/screens/chapter_ai_chat_screen.dart:6:8 • uri_does_not_exist
+  error • The getter 'messages' isn't defined for the type 'Object' • lib/features/ai_chat/presentation/screens/chapter_ai_chat_screen.dart:57:21 • undefined_getter
+  error • The property 'messages' can't be unconditionally accessed because the receiver can be 'null' • lib/features/ai_chat/presentation/screens/chapter_ai_chat_screen.dart:57:45 • unchecked_use_of_nullable_value
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/ai_chat/presentation/screens/chapter_ai_chat_screen.dart:131:38 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/ai_chat/presentation/screens/chapter_ai_chat_screen.dart:151:43 • deprecated_member_use
+  error • Undefined class 'ChatMessageModel' • lib/features/ai_chat/presentation/screens/chapter_ai_chat_screen.dart:216:27 • undefined_class
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/ai_chat/presentation/screens/chapter_ai_chat_screen.dart:234:64 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/ai_chat/presentation/screens/chapter_ai_chat_screen.dart:237:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/ai_chat/presentation/screens/chapter_ai_chat_screen.dart:264:50 • deprecated_member_use
+  error • Target of URI doesn't exist: '../models/user_model.dart' • lib/features/auth/presentation/providers/auth_provider.dart:3:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: '../repositories/auth_repository.dart' • lib/features/auth/presentation/providers/auth_provider.dart:4:8 • uri_does_not_exist
+  error • Undefined class 'UserModel' • lib/features/auth/presentation/providers/auth_provider.dart:17:9 • undefined_class
+  error • Undefined class 'UserModel' • lib/features/auth/presentation/providers/auth_provider.dart:28:5 • undefined_class
+  error • The function 'StateNotifierProvider' isn't defined • lib/features/auth/presentation/providers/auth_provider.dart:39:32 • undefined_function
+  error • Undefined name 'authRepositoryProvider' • lib/features/auth/presentation/providers/auth_provider.dart:40:32 • undefined_identifier
+  error • Undefined name 'tokenStorageProvider' • lib/features/auth/presentation/providers/auth_provider.dart:41:34 • undefined_identifier
+  error • Classes can only extend other classes • lib/features/auth/presentation/providers/auth_provider.dart:45:30 • extends_non_class
+  error • Undefined class 'AuthRepository' • lib/features/auth/presentation/providers/auth_provider.dart:46:9 • undefined_class
+  error • Too many positional arguments: 0 expected, but 1 found • lib/features/auth/presentation/providers/auth_provider.dart:50:15 • extra_positional_arguments
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:55:5 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:55:13 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:61:9 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:63:9 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:68:7 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:76:5 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:76:13 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:79:7 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:82:7 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:82:15 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:91:6 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:91:14 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:94:7 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:97:7 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:97:15 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:106:5 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:106:13 • undefined_identifier
+  error • Undefined name 'state' • lib/features/auth/presentation/providers/auth_provider.dart:108:5 • undefined_identifier
+  error • The class 'EdgeInsets' doesn't have a constant constructor 'bottom' • lib/features/auth/presentation/screens/login_screen.dart:90:46 • const_with_undefined_constructor
+  error • The function 'StateNotifierProvider' isn't defined • lib/features/dashboard/presentation/providers/dashboard_provider.dart:8:37 • undefined_function
+  error • Classes can only extend other classes • lib/features/dashboard/presentation/providers/dashboard_provider.dart:18:35 • extends_non_class
+  error • Too many positional arguments: 0 expected, but 1 found • lib/features/dashboard/presentation/providers/dashboard_provider.dart:19:33 • extra_positional_arguments
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/dashboard/presentation/screens/dashboard_screen.dart:123:114 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/dashboard/presentation/screens/dashboard_screen.dart:175:48 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/dashboard/presentation/screens/dashboard_screen.dart:178:42 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/dashboard/presentation/screens/dashboard_screen.dart:200:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/dashboard/presentation/screens/dashboard_screen.dart:279:50 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/dashboard/presentation/screens/dashboard_screen.dart:287:30 • deprecated_member_use
+  error • Target of URI doesn't exist: '../models/module_model.dart' • lib/features/modules/presentation/providers/module_provider.dart:2:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: '../repositories/module_repository.dart' • lib/features/modules/presentation/providers/module_provider.dart:3:8 • uri_does_not_exist
+  error • The name 'ModuleModel' isn't a type, so it can't be used as a type argument • lib/features/modules/presentation/providers/module_provider.dart:5:45 • non_type_as_type_argument
+  error • Undefined name 'moduleRepositoryProvider' • lib/features/modules/presentation/providers/module_provider.dart:6:32 • undefined_identifier
+  error • The name 'ChapterModel' isn't a type, so it can't be used as a type argument • lib/features/modules/presentation/providers/module_provider.dart:11:47 • non_type_as_type_argument
+  error • Undefined name 'moduleRepositoryProvider' • lib/features/modules/presentation/providers/module_provider.dart:12:32 • undefined_identifier
+  error • Target of URI doesn't exist: '../../data/models/chapter_model.dart' • lib/features/modules/presentation/screens/chapter_player_screen.dart:11:8 • uri_does_not_exist
+  error • The name 'PlayerState' is defined in the libraries 'package:audioplayers_platform_interface/src/api/player_state.dart (via package:audioplayers/audioplayers.dart)' and 'package:youtube_player_flutter/src/enums/player_state.dart (via package:youtube_player_flutter/youtube_player_flutter.dart)' • lib/features/modules/presentation/screens/chapter_player_screen.dart:47:49 • ambiguous_import
+  error • The property 'type' can't be unconditionally accessed because the receiver can be 'null' • lib/features/modules/presentation/screens/chapter_player_screen.dart:79:23 • unchecked_use_of_nullable_value
+  error • The property 'videoUrl' can't be unconditionally accessed because the receiver can be 'null' • lib/features/modules/presentation/screens/chapter_player_screen.dart:79:50 • unchecked_use_of_nullable_value
+  error • The property 'videoUrl' can't be unconditionally accessed because the receiver can be 'null' • lib/features/modules/presentation/screens/chapter_player_screen.dart:80:32 • unchecked_use_of_nullable_value
+  error • The property 'type' can't be unconditionally accessed because the receiver can be 'null' • lib/features/modules/presentation/screens/chapter_player_screen.dart:81:30 • unchecked_use_of_nullable_value
+  error • The property 'audioUrl' can't be unconditionally accessed because the receiver can be 'null' • lib/features/modules/presentation/screens/chapter_player_screen.dart:81:57 • unchecked_use_of_nullable_value
+  error • The property 'audioUrl' can't be unconditionally accessed because the receiver can be 'null' • lib/features/modules/presentation/screens/chapter_player_screen.dart:82:32 • unchecked_use_of_nullable_value
+  error • The property 'type' can't be unconditionally accessed because the receiver can be 'null' • lib/features/modules/presentation/screens/chapter_player_screen.dart:103:58 • unchecked_use_of_nullable_value
+  error • The property 'type' can't be unconditionally accessed because the receiver can be 'null' • lib/features/modules/presentation/screens/chapter_player_screen.dart:106:39 • unchecked_use_of_nullable_value
+  error • The property 'title' can't be unconditionally accessed because the receiver can be 'null' • lib/features/modules/presentation/screens/chapter_player_screen.dart:118:33 • unchecked_use_of_nullable_value
+  error • The argument type 'Object?' can't be assigned to the parameter type 'ChapterModel'.  • lib/features/modules/presentation/screens/chapter_player_screen.dart:126:42 • argument_type_not_assignable
+  error • The property 'content' can't be unconditionally accessed because the receiver can be 'null' • lib/features/modules/presentation/screens/chapter_player_screen.dart:131:35 • unchecked_use_of_nullable_value
+  error • The property 'content' can't be unconditionally accessed because the receiver can be 'null' • lib/features/modules/presentation/screens/chapter_player_screen.dart:133:35 • unchecked_use_of_nullable_value
+  error • The property 'aiInteractionEnabled' can't be unconditionally accessed because the receiver can be 'null' • lib/features/modules/presentation/screens/chapter_player_screen.dart:172:39 • unchecked_use_of_nullable_value
+  error • The property 'aiInteractionEnabled' can't be unconditionally accessed because the receiver can be 'null' • lib/features/modules/presentation/screens/chapter_player_screen.dart:187:41 • unchecked_use_of_nullable_value
+  error • Target of URI doesn't exist: '../../data/models/chapter_model.dart' • lib/features/modules/presentation/screens/module_detail_screen.dart:6:8 • uri_does_not_exist
+  error • The property 'id' can't be unconditionally accessed because the receiver can be 'null' • lib/features/modules/presentation/screens/module_detail_screen.dart:27:56 • unchecked_use_of_nullable_value
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/modules/presentation/screens/module_detail_screen.dart:62:41 • deprecated_member_use
+   info • Unnecessary use of 'toList' in a spread • lib/features/modules/presentation/screens/module_detail_screen.dart:139:14 • unnecessary_to_list_in_spreads
+  error • The function 'StateNotifierProvider' isn't defined • lib/features/submission/presentation/providers/submission_provider.dart:45:32 • undefined_function
+  error • Classes can only extend other classes • lib/features/submission/presentation/providers/submission_provider.dart:49:40 • extends_non_class
+  error • Too many positional arguments: 0 expected, but 1 found • lib/features/submission/presentation/providers/submission_provider.dart:52:54 • extra_positional_arguments
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:55:9 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:56:7 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:56:15 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:56:43 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:61:9 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:62:7 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:62:15 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:62:43 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:67:51 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:69:5 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:69:13 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:73:5 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:73:13 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:76:16 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:77:22 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:78:19 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:83:7 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:83:15 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:85:7 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:85:15 • undefined_identifier
+  error • Undefined name 'state' • lib/features/submission/presentation/providers/submission_provider.dart:90:5 • undefined_identifier
+
